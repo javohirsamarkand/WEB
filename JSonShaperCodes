@@ -1,0 +1,49 @@
+var fs = require("fs");
+var fspm = require("fs").promises;
+var path = require("path");
+
+var data = fs.readFileSync(path.join(__dirname, "bemo.json"), "utf-8");
+
+
+
+function meGom(data) {
+  var newData = "";
+  var row = "";
+  length = data.length;
+  s = 0;
+  for (var item of data) {
+    if (item == "[") {
+      newData += "[\n";
+    } else if (item == "]") {
+      newData += "]\n";
+    } else if (item == "{") {
+      newData += "   {\n\n";
+    } else if (item == "}") {
+      newData += "    ";
+      newData += row;
+      row = "";
+      if (s != 600) {
+        newData += "\n\n   },\n";
+      } else {
+        newData += "\n\n   }\n";
+      }
+    } else {
+      if (item == ",") {
+        if (row.length > 0) {
+          newData += "    ";
+          newData += row;
+          newData += ",\n";
+          row = "";
+        }
+      } else {
+        row += item;
+      }
+    }
+
+    s += 1;
+  }
+  return newData
+}
+
+var show=meGom(data)
+console.log(JSON.parse(show))
