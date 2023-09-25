@@ -1,0 +1,30 @@
+function isInside(minItem,maxItem){
+    var result=false
+    if(minItem.length==maxItem.length){
+        if(minItem==maxItem){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    var repTime=(maxItem.length-minItem.length)+1
+    var s=0
+    var neededLen=minItem.length
+    while (s<repTime){
+        var newItem=maxItem.slice(s,neededLen)
+        if(newItem==minItem){
+            result=true
+        }
+
+        s+=1
+        neededLen+=1
+    }
+
+    return result
+
+   
+}
+
+var show=isInside('jaxongir','jaxongirme')
+console.log(show)
